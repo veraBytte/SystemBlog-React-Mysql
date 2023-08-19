@@ -9,6 +9,7 @@ import Write from "./pages/Write";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import "./styles.css"
 
 // Importamos las funciones necesarias para crear nuestro router en esta caso lo cree con React Router
 import {

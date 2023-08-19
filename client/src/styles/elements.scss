@@ -1,0 +1,29 @@
+@use 'tools' as *;
+
+//Estilos muy generales
+
+body{
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    background-color: var(--color-back-pearl-50);
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#root{
+    width: 100%;
+}
+
+.container{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}

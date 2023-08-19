@@ -1,0 +1,25 @@
+.main_button{
+    padding: 10px;
+    border: none;
+    background-color: var(--color-back-pearl-800);
+    cursor: pointer;
+    color: var(--color-aquarius-50);
+    border-radius: 20px;
+    font-size: 16px;
+
+    &:hover{
+        background-color: var(--color-aquarius-600);
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+.secondary_button{
+    padding: 10px;
+    border: none;
+    background-color: var(--color-aquarius-700);
+    cursor: pointer;
+    color: var(--color-back-pearl-50);
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+}
