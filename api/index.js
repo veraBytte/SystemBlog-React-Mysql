@@ -3,11 +3,14 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
+
 
 // Configura CORS para permitir solicitudes desde tu frontend
 app.use(cors({

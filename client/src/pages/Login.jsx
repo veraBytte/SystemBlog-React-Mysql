@@ -6,7 +6,7 @@ import axios from "axios";
 const Login = () => {
 
     const [inputs, setInputs] = React.useState({
-        username: "",
+        email: "",
         password: "",
     });
     const [err, setError] = React.useState(null);
@@ -31,7 +31,7 @@ const Login = () => {
         <div className="auth">
             <h1 className="auth_tittle">Login</h1>
             <form className="auth_form">
-                <input required className="input" type="text" placeholder="Username" name="username" onChange={handleInputChange}/>
+                <input required className="input" type="text" placeholder="Username" name="email" onChange={handleInputChange}/>
                 <input required className="input" type="password" placeholder="Password" name="password" onChange={handleInputChange}/>
                 <button className="main_button" onClick={handleSubmit}>Login</button>
 
