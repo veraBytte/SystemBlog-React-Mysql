@@ -33,6 +33,10 @@ export const register = (req,res)=>{
     })
 }
 
-export const login = (req,res)=>{}
+export const login = (req,res)=>{
+    //Validacion del usuario
+
+    const q = "SELECT * FROM users WHERE email = ?";
+}
 
 export const logout = (req,res)=>{}
