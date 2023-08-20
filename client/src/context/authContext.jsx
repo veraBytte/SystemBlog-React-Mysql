@@ -1,4 +1,3 @@
-// authContext.js
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
@@ -7,9 +6,9 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
 
-    const login = async(inputs) => {
+    const login = async (inputs) => {
          const res = await axios.post("http://localhost:3001/api/auth/login", inputs);
-        setCurrentUser(res.data);
+        setCurrentUser(res.data); // Guardar solo la información necesaria
     }
 
     const logout = async(inputs) => {
@@ -17,9 +16,9 @@ export const AuthContextProvider = ({ children }) => {
        setCurrentUser(null);
    }
 
-   useEffect(() => { 
-    localStorage.setItem("user", JSON.stringify(currentUser));
-   }, [currentUser]);
+    useEffect(() => {
+        localStorage.setItem("user", JSON.stringify(currentUser));
+    }, [currentUser]);    
 
    return (
        <AuthContext.Provider value={{ currentUser, login, logout }}>
@@ -27,5 +26,3 @@ export const AuthContextProvider = ({ children }) => {
        </AuthContext.Provider>
    );
 }
-
-

@@ -58,15 +58,24 @@ export const login = (req,res)=>{
 
         // Se envia el token como cookie
 
-        const{password,...other}= data[0];
+        //const{password,...other}= data[0];
+        const user = {
+            id: data[0].id,
+            username: data[0].username,
+        };
 
         //Se establece el timepo del token en 3 minutos
 
         res.cookie("access_token", token, {
             httpOnly: true,
             maxAge: 3*60*1000,
-        }).status(200).json(other);
+        }).status(200).json(user);
     })
 }
 
-export const logout = (req,res)=>{}
+export const logout = (req, res) => {
+    res.clearCookie("access_token",{
+      sameSite:"none",
+      secure:true
+    }).status(200).json("User has been logged out.")
+  };
