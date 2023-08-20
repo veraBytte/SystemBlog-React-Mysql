@@ -53,12 +53,18 @@ export const login = (req,res)=>{
             {
                 id: data[0].id,
             }, "jwtKey"
+            
         );
+
+        // Se envia el token como cookie
 
         const{password,...other}= data[0];
 
+        //Se establece el timepo del token en 3 minutos
+
         res.cookie("access_token", token, {
             httpOnly: true,
+            maxAge: 3*60*1000,
         }).status(200).json(other);
     })
 }
