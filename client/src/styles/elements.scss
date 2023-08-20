@@ -27,3 +27,22 @@ main{
     margin: 0 auto;
     padding: 20px;
 }
+
+.footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(35, 200, 200);
+    align-items: center;
+    padding: 20px;
+
+    span{
+        font-size: 12px;
+        color: var(--color-back-pearl-800);
+    }
+}
+
+.footer_logo{
+    width: 100px;
+    mix-blend-mode: multiply;
+}
