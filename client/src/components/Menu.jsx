@@ -23,7 +23,7 @@ const Menu = ({cat}) => {
             <h1>Descubre Mas !!</h1>
             {posts.map(post => (
                 <div className="post" key={post.id}>
-                    <img src={post.img} alt="" />
+                    <img src={`../../public/upload/${post.img}`} alt="" />
                     <h2>{post.title}</h2>
                     <button className="secondary_button">Ver mas</button>
                 </div>

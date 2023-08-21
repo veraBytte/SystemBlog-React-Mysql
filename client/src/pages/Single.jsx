@@ -42,10 +42,15 @@ const Single = () => {
         }
     };
 
+    const getText = (html) =>{
+        const doc = new DOMParser().parseFromString(html, "text/html")
+        return doc.body.textContent
+      }
+
     return (
         <div className="single">
             <div className="content">
-                <img  src={post?.img}/>
+                <img src={`../../public/upload/${post?.img}`} alt="" />
             <div className="user">
             {post.userImg ? (
                 <img className="content_avatar" src={post.userImg} alt="" />
@@ -70,7 +75,7 @@ const Single = () => {
 
 
             <h1 className="title">{post.title}</h1>
-            {post.description}
+            {getText(post.description)}
 
             </div>
 

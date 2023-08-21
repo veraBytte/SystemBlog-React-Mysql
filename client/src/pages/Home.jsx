@@ -20,6 +20,11 @@ const Home = () => {
         }
         fetchData();
     }, [cat]);
+
+    const getText = (html) =>{
+        const doc = new DOMParser().parseFromString(html, "text/html")
+        return doc.body.textContent
+      }
     
     return (
         <div className="home">
@@ -27,14 +32,14 @@ const Home = () => {
                     {posts.map(post => (
                         <div className="post" key={post.id}>
                             <div className="post_img">
-                                <img src={post.img} alt="" />
+                                <img src={`../../public/upload/${post.img}`} alt="" />
                             </div>
 
                             <div className="post_content">
                                 <Link to={`/post/${post.id}`} className="link">
                                     <h1>{post.title}</h1>
                                 </Link>
-                                    <p>{post.description}</p>
+                                    <p>{getText(post.description)}</p>
                                     <button className="secondary_button">Ver mas</button>
                             </div>
                         </div>
