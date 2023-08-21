@@ -50,7 +50,7 @@ const Single = () => {
             {post.userImg ? (
                 <img className="content_avatar" src={post.userImg} alt="" />
                 ) : (
-                <img className="content_avatar" src="https://i.pinimg.com/originals/0f/8e/9a/0f8e9a4b5b0b0b0b0b0b0b0b0b0b0b0b.jpg" alt="" />
+                <img className="content_avatar" src="https://unavatar.io/github/37t?fallback=https://source.boringavatars.com/marble/120/1337_user?colors=264653r,2a9d8f,e9c46a,f4a261,e76f51" alt="" />
             )}
                 <div className="info">
                     <span>{post.username}</span>
