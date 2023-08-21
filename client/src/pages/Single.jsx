@@ -75,7 +75,8 @@ const Single = () => {
             </div>
 
             <div>
-                <Menu />
+                <Menu cat={post.cat}/>
+                {console.log(post.cat)}
             </div>
         </div>
     );

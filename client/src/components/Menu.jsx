@@ -1,45 +1,22 @@
 import React from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
-const Menu = () => {
+const Menu = ({cat}) => {
 
-    const posts = [
-        {
-            id: 1,
-            title: "React",
-            content: "Bla bla bla",
-            img: "https://images.pexels.com/photos/17480199/pexels-photo-17480199/free-photo-of-top-view-of-a-woman-playing-the-piano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-        {
-            id: 2,
-            title: "React",
-            content: "Bla bla bla",
-            img: "https://images.pexels.com/photos/17480199/pexels-photo-17480199/free-photo-of-top-view-of-a-woman-playing-the-piano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-        {
-            id: 3,
-            title: "React",
-            content: "Bla bla bla",
-            img: "https://images.pexels.com/photos/17480199/pexels-photo-17480199/free-photo-of-top-view-of-a-woman-playing-the-piano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-        {
-            id: 4,
-            title: "React",
-            content: "Bla bla bla",
-            img: "https://images.pexels.com/photos/17480199/pexels-photo-17480199/free-photo-of-top-view-of-a-woman-playing-the-piano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-        {
-            id: 5,
-            title: "React",
-            content: "Bla bla bla",
-            img: "https://images.pexels.com/photos/17480199/pexels-photo-17480199/free-photo-of-top-view-of-a-woman-playing-the-piano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-        {
-            id: 6,
-            title: "React",
-            content: "Bla bla bla",
-            img: "https://images.pexels.com/photos/17480199/pexels-photo-17480199/free-photo-of-top-view-of-a-woman-playing-the-piano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-    ];
+    const [posts, setPosts] = React.useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                const res = await axios.get(`http://localhost:3001/api/posts?cat=${cat}`);
+                setPosts(res.data);
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, [cat]);
 
     return (
         <div className="menu">
