@@ -8,7 +8,7 @@ import moment from "moment";
 const Write = () => {
   const state = useLocation().state;
   const [value, setValue] = useState(state?.title || "");
-  const [title, setTitle] = useState(state?.desc || "");
+  const [title, setTitle] = useState(state?.description || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || "");
 
@@ -18,7 +18,7 @@ const Write = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await axios.post("/upload", formData);
+      const res = await axios.post("http://localhost:3001/api/upload", formData);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -31,15 +31,15 @@ const Write = () => {
 
     try {
       state
-        ? await axios.put(`/posts/${state.id}`, {
+        ? await axios.put(`http://localhost:3001/api/posts/${state.id}`, {
             title,
-            desc: value,
+            description: value,
             cat,
             img: file ? imgUrl : "",
           })
-        : await axios.post(`/posts/`, {
+        : await axios.post(`http://localhost:3001/api/posts/`, {
             title,
-            desc: value,
+            description: value,
             cat,
             img: file ? imgUrl : "",
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
@@ -96,68 +96,57 @@ const Write = () => {
           <div className="cat">
             <input
               type="radio"
-              checked={cat === "art"}
+              checked={cat === "arte"}
               name="cat"
-              value="art"
-              id="art"
+              value="arte"
+              id="arte"
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor="art">Art</label>
+            <label htmlFor="arte">arte</label>
           </div>
           <div className="cat">
             <input
               type="radio"
-              checked={cat === "science"}
+              checked={cat === "ciencias"}
               name="cat"
-              value="science"
-              id="science"
+              value="ciencias"
+              id="ciencias"
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor="science">Science</label>
+            <label htmlFor="ciencias">ciencias</label>
           </div>
           <div className="cat">
             <input
               type="radio"
-              checked={cat === "technology"}
+              checked={cat === "tecnologia"}
               name="cat"
-              value="technology"
-              id="technology"
+              value="tecnologia"
+              id="tecnologia"
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor="technology">Technology</label>
+            <label htmlFor="tecnologia">tecnologia</label>
           </div>
           <div className="cat">
             <input
               type="radio"
-              checked={cat === "cinema"}
+              checked={cat === "cine"}
               name="cat"
-              value="cinema"
-              id="cinema"
+              value="cine"
+              id="cine"
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor="cinema">Cinema</label>
+            <label htmlFor="cine">cine</label>
           </div>
           <div className="cat">
             <input
               type="radio"
-              checked={cat === "design"}
+              checked={cat === "ingles"}
               name="cat"
-              value="design"
-              id="design"
+              value="ingles"
+              id="ingles"
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor="design">Design</label>
-          </div>
-          <div className="cat">
-            <input
-              type="radio"
-              checked={cat === "food"}
-              name="cat"
-              value="food"
-              id="food"
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor="food">Food</label>
+            <label htmlFor="ingles">Inlges</label>
           </div>
         </div>
       </div>
