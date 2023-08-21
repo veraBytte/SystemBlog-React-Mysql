@@ -40,36 +40,33 @@ export const login = (req,res)=>{
     const q = "SELECT * FROM users WHERE email = ?";
 
     db.query(q, [req.body.email], (err, data)=>{
-        if(err)return res.json(err);
-
+        if (err) return res.status(500).json(err);
         if(data.length === 0)return res.status(404).json("Usuario no encontrado");
 
         // Se compara la contraseña ingresada con el hash guardado en la base de datos
         const isPasswordTrue = bcrypt.compareSync(req.body.password, data[0].password);
-        if(!isPasswordTrue)return res.status(401).json("Contraseña incorrecta");
+        if(!isPasswordTrue)
+            return res.status(400).json("Contraseña incorrecta");
 
         // Se genera el token
         const token = jwt.sign(
             {
                 id: data[0].id,
             }, "jwtKey"
-            
         );
-
-        // Se envia el token como cookie
-
-        //const{password,...other}= data[0];
-        const user = {
+        const{password,...other}= data[0];
+        
+        /*const user = {
             id: data[0].id,
             username: data[0].username,
-        };
+        };*/
 
-        //Se establece el timepo del token en 3 minutos
-
+        // Se envia el token como cookie
         res.cookie("access_token", token, {
             httpOnly: true,
-            maxAge: 3*60*1000,
-        }).status(200).json(user);
+            //EL token expira en 2 minutos
+            maxAge: 5*60*1000,
+        }).status(200).json(other);
     })
 }
 
@@ -77,5 +74,6 @@ export const logout = (req, res) => {
     res.clearCookie("access_token",{
       sameSite:"none",
       secure:true
-    }).status(200).json("User has been logged out.")
+    });
+    return res.status(200).json("Usuario ha cerrado sesion.")
   };

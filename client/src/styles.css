@@ -210,6 +210,8 @@ main {
 }
 .home .post_content p {
   font-size: 18px;
+  height: 100px;
+  overflow-y: hidden;
 }
 .home .post_content button {
   width: 100px;

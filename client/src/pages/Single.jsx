@@ -1,47 +1,76 @@
 import React from "react";
 import Editar from "../assets/editar.png";
 import Eliminar from "../assets/borrar.png";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import { useEffect } from "react";
 import Menu from "../components/Menu";
+import axios from "axios";
+import moment from "moment";
+import { AuthContext } from "../context/authContext.jsx";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Single = () => {
+
+    const [post, setPost] = React.useState({});
+
+    const location = useLocation()
+    const navigate = useNavigate();
+
+    const postId = location.pathname.split("/")[2];
+    const {currentUser} = React.useContext(AuthContext);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                const res = await axios.get(`http://localhost:3001/api/posts/${postId}`);
+                setPost(res.data);
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, [postId]);
+
+    const handleDelete = async () => {
+        try{
+            await axios.delete(`http://localhost:3001/api/posts/${postId}`);
+            navigate("/");
+        }catch(err){
+            console.log(err);
+        }
+    };
+
     return (
         <div className="single">
             <div className="content">
-                <img  src="https://images.pexels.com/photos/17118488/pexels-photo-17118488/free-photo-of-sea-black-and-white-dawn-landscape.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                <img  src={post?.img}/>
             <div className="user">
-                <img className="content_avatar" src="https://unavatar.io/dribbble/omidnikrah" alt="" />
+            {post.userImg ? (
+                <img className="content_avatar" src={post.userImg} alt="" />
+                ) : (
+                <img className="content_avatar" src="https://i.pinimg.com/originals/0f/8e/9a/0f8e9a4b5b0b0b0b0b0b0b0b0b0b0b0b.jpg" alt="" />
+            )}
                 <div className="info">
-                    <span>Jhon</span>
-                    <p>Posted 2 days ago</p>
+                    <span>{post.username}</span>
+                    <p>Posted {moment(post.date).fromNow()}</p>
                 </div>
 
+                {currentUser && currentUser.username === post.username && (
                 <div className="edit">
                     <Link to={`/write?edit=2`}>
-                         <img className="interaction"  src={Editar} alt="" />
+                    <img className="interaction" src={Editar} alt="" />
                     </Link>
-                    
-                    <img className="interaction"  src={Eliminar} alt="" />
+                    <img className="interaction" onClick={handleDelete} src={Eliminar} alt="" />
                 </div>
+                )}
             </div>
-            <h1 className="title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</h1>
-            
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates reiciendis labore nostrum dicta accusamus error distinctio quod, earum molestiae. Vero iusto dicta iure est quo consectetur aut eaque corporis tempora!
-            <br /><br />
-            Veritatis quibusdam dolore odit soluta qui. Facere omnis debitis recusandae provident, accusamus ad laudantium sit dolorem sequi quisquam quod modi voluptatibus vel officiis maxime exercitationem ullam quam animi voluptates optio.
-            <br /><br />
-            Odit veniam blanditiis id! Inventore quo delectus, repellat minima voluptatum recusandae molestiae officia maxime explicabo neque, eligendi eaque ea ducimus totam fuga nisi assumenda omnis quia a iste quod. Incidunt.
-            <br /><br />
-            Similique eveniet explicabo, est mollitia non nesciunt eos recusandae doloribus necessitatibus quidem, dicta iusto, iure eligendi natus nisi sapiente veniam animi aut voluptate. Tempore veritatis, similique neque ullam quae iste!
-            <br /><br />
-            Sed aliquid odio at nulla eveniet enim alias nemo soluta, accusamus numquam modi magni atque voluptate ipsam, commodi nesciunt, in ipsum magnam deleniti? Impedit dicta esse quae dolores cumque consectetur!
-            <br /><br />
-            Dignissimos excepturi recusandae explicabo pariatur. Odio voluptates consectetur sequi fuga obcaecati reiciendis esse quis quia nam, velit ipsum alias tempore voluptate ratione a iste ullam odit, reprehenderit aperiam autem dicta!
-            Itaque explicabo veritatis aut sint culpa praesentium! Culpa, facilis quos repellat consequuntur alias deleniti, ea sequi dignissimos quas magni commodi quisquam ut iure earum soluta aut eveniet, ex consectetur omnis!
-            Hic culpa eius cum! A rem facilis sunt laboriosam dolorum, iure, quasi tempore alias magnam reprehenderit aspernatur nostrum nihil sint ipsum. Quisquam voluptatum consequatur, aut voluptatem unde esse dolore perferendis.
-            Consequuntur ut non sed, tempore quos assumenda adipisci perspiciatis temporibus id iure est odio, ab minima minus harum reiciendis saepe? Beatae porro fuga at veniam repellendus ab deleniti magni commodi.
-            Dolore commodi a, eos cumque nesciunt, iure, atque necessitatibus sequi ratione nobis voluptatum veniam soluta dignissimos assumenda placeat. Quod tempora sed error vel velit modi molestias commodi vero sint provident!</p>
+
+
+
+            <h1 className="title">{post.title}</h1>
+            {post.description}
 
             </div>
 
